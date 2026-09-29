@@ -1,0 +1,6 @@
+{
+  "name": "ThrivePath Wellspring - University Digital Well-Being Platform",
+  "description": "An enterprise university digital well-being platform demonstrating the closed-loop care pathway: student registration, intelligent stress indicator screening, proactive support routing, counselling booking, attendance tracking, and re-screening.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

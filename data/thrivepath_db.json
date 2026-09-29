@@ -1,0 +1,319 @@
+{
+  "users": [
+    {
+      "id": "usr_admin_01",
+      "email": "admin@campus.ac.za",
+      "fullName": "Prof. Siphesihle Sithole",
+      "role": "admin",
+      "title": "Dean of Student Affairs & Platform Administrator",
+      "approved": true,
+      "createdAt": "2026-09-01T08:00:00Z"
+    },
+    {
+      "id": "usr_student_01",
+      "email": "siqinisekonqobile@gmail.com",
+      "fullName": "Siqiniseko Nqobile",
+      "role": "student",
+      "approved": true,
+      "createdAt": "2026-09-05T10:00:00Z"
+    },
+    {
+      "id": "usr_counsellor_01",
+      "email": "dr.khumalo@campus.ac.za",
+      "fullName": "Dr. Nomvula Khumalo, Ph.D.",
+      "role": "counsellor",
+      "title": "Lead Clinical Psychologist & STEM Care Specialist",
+      "approved": true,
+      "createdAt": "2026-09-01T09:00:00Z"
+    },
+    {
+      "id": "usr_counsellor_02",
+      "email": "sipho.dlamini@campus.ac.za",
+      "fullName": "Sipho Dlamini, LCSW",
+      "role": "counsellor",
+      "title": "Senior Student Mental Health Specialist",
+      "approved": true,
+      "createdAt": "2026-09-02T11:00:00Z"
+    },
+    {
+      "id": "usr_counsellor_03",
+      "email": "dr.zola@campus.ac.za",
+      "fullName": "Dr. Zola Mbatha",
+      "role": "counsellor",
+      "title": "Registered Counselling Psychologist (HPCSA)",
+      "approved": false,
+      "createdAt": "2026-09-28T14:30:00Z",
+      "notes": "HPCSA Practice No: PS 0148922 · Master of Arts in Clinical Psychology, Wits"
+    }
+  ],
+  "studentProfiles": {
+    "usr_student_01": {
+      "id": "usr_student_01",
+      "studentId": "ZA-2024-4192",
+      "fullName": "Siqiniseko Nqobile",
+      "email": "siqinisekonqobile@gmail.com",
+      "faculty": "Faculty of Engineering & the Built Environment",
+      "program": "B.Sc. Electrical & Computer Engineering",
+      "yearOfStudy": 2,
+      "residentialStatus": "on_campus",
+      "preferredPronouns": "he/him",
+      "emergencyContact": {
+        "name": "Thandi Nqobile",
+        "relationship": "Parent",
+        "phone": "+27 82 555 4192"
+      },
+      "registeredAt": "2026-09-08T08:30:00Z",
+      "screeningStatus": "completed",
+      "registrationProgressPercent": 85,
+      "pulseScore": 50,
+      "primaryIndicator": "General Student Well-Being Check",
+      "averageSleepHours": 6
+    }
+  },
+  "screenings": [
+    {
+      "id": "scr_baseline_siqiniseko",
+      "studentId": "usr_student_01",
+      "studentName": "Siqiniseko Nqobile",
+      "timestamp": "2026-09-22T14:15:00Z",
+      "termWeek": 4,
+      "input": {
+        "studyHours": 8,
+        "classAttendance": 84,
+        "examFrequency": 7,
+        "assignmentLoad": 8,
+        "sleepHours": 6,
+        "physicalExercise": true,
+        "screenTime": 8,
+        "socialMediaUse": 4,
+        "familySupport": 4,
+        "peerPressure": 6,
+        "anxietyLevel": 7,
+        "feelingText": "Overlapping electrical circuits lab reports and midterm preparation. Sleeping about 6 hours. Feeling stretched before engineering lectures."
+      },
+      "rawScore": 21.4,
+      "pulseScore": 72,
+      "stressBand": "high",
+      "primaryIndicator": "Academic load",
+      "aiAnalysis": {
+        "clinicalSummary": "Elevated composite strain (72/100) identified by the student dataset model. Driven primarily by high exam frequency (+0.38) and assignment load, alongside moderate sleep reduction (-0.24). Physical exercise provides an active coping buffer.",
+        "identifiedTriggers": [
+          "Concurrent engineering assignment deliverables & test scheduling",
+          "Nighttime screen saturation (8h/day)",
+          "Academic peer performance comparison"
+        ],
+        "protectiveFactors": [
+          "Maintains regular physical exercise",
+          "Consistently attends classes (84% attendance)",
+          "Proactively engaged with university wellbeing portal"
+        ],
+        "recommendedPathway": "priority_counselling",
+        "actionItems": [
+          "Confidential video or in-person session with Dr. Khumalo",
+          "Structured 4-7-8 somatic relaxation prior to study blocks",
+          "Academic skill-building module on deliverable pacing"
+        ]
+      }
+    },
+    {
+      "id": "scr_1790665595731",
+      "studentId": "usr_student_01",
+      "studentName": "Siqiniseko Nqobile",
+      "timestamp": "2026-09-29T07:06:35.731Z",
+      "termWeek": 8,
+      "input": {
+        "studyHours": 7,
+        "classAttendance": 88,
+        "examFrequency": 6,
+        "assignmentLoad": 6,
+        "sleepHours": 6,
+        "physicalExercise": true,
+        "screenTime": 6,
+        "socialMediaUse": 4,
+        "familySupport": 6,
+        "peerPressure": 5,
+        "anxietyLevel": 5,
+        "feelingText": "Feeling good, managing courses."
+      },
+      "rawScore": 7.1,
+      "pulseScore": 40,
+      "stressBand": "moderate",
+      "primaryIndicator": "Academic load",
+      "previousScoreDelta": -32,
+      "aiAnalysis": {
+        "clinicalSummary": "Wellbeing Pulse calculated at 40/100 (Moderate stress band) based on university student dataset indicators. Primary indicator: Academic load.",
+        "identifiedTriggers": [
+          "Academic Clustering: Exam frequency (6/9) and assignments (6/9) generate acute deliverable friction.",
+          "Student note: \"Feeling good, managing courses.\""
+        ],
+        "protectiveFactors": [
+          "Family Support: Strong family connectedness (6/9) acts as a primary psychological shock absorber.",
+          "Physical Activity: Active movement helps metabolize stress cortisol and tension."
+        ],
+        "recommendedPathway": "peer_circle",
+        "actionItems": [
+          "Review matched support exercises in your digital toolkit",
+          "Maintain restorative sleep and study breaks",
+          "Periodic re-screening recommended in 3 weeks"
+        ]
+      }
+    },
+    {
+      "id": "scr_1790667840647",
+      "studentId": "usr_student_01",
+      "studentName": "Siqiniseko Nqobile",
+      "timestamp": "2026-09-29T07:44:00.647Z",
+      "termWeek": 8,
+      "input": {
+        "sleepHours": 6,
+        "assignmentLoad": 6,
+        "screenTime": 6,
+        "familySupport": 5
+      },
+      "rawScore": null,
+      "pulseScore": null,
+      "stressBand": "low",
+      "primaryIndicator": "Academic load",
+      "previousScoreDelta": null,
+      "aiAnalysis": {
+        "clinicalSummary": "Wellbeing Pulse calculated at NaN/100 (Low stress band) based on university student dataset indicators. Primary indicator: Academic load.",
+        "identifiedTriggers": [
+          "Academic Clustering: Exam frequency (undefined/9) and assignments (6/9) generate acute deliverable friction."
+        ],
+        "protectiveFactors": [],
+        "recommendedPathway": "self_guided",
+        "actionItems": [
+          "Review matched support exercises in your digital toolkit",
+          "Maintain restorative sleep and study breaks",
+          "Periodic re-screening recommended in 3 weeks"
+        ]
+      }
+    },
+    {
+      "id": "scr_1790667936719",
+      "studentId": "usr_student_01",
+      "studentName": "Siqiniseko Nqobile",
+      "timestamp": "2026-09-29T07:45:36.719Z",
+      "termWeek": 8,
+      "input": {
+        "sleepHours": 6,
+        "assignmentLoad": 6,
+        "screenTime": 6,
+        "familySupport": 5
+      },
+      "rawScore": 10,
+      "pulseScore": 50,
+      "stressBand": "neutral",
+      "primaryIndicator": "General Student Well-Being Check",
+      "previousScoreDelta": 50,
+      "aiAnalysis": {
+        "clinicalSummary": "Your check-in responses have been recorded safely. University well-being resources, support toolkits, and confidential counselling remain completely accessible to you.",
+        "identifiedTriggers": [],
+        "protectiveFactors": [],
+        "recommendedPathway": "self_guided",
+        "actionItems": [
+          "Explore self-guided student well-being toolkit",
+          "Speak with a qualified university counsellor if desired",
+          "Periodic re-screening recommended in 3 weeks"
+        ]
+      }
+    },
+    {
+      "id": "scr_1790668166154",
+      "studentId": "usr_student_01",
+      "studentName": "Siqiniseko Nqobile",
+      "timestamp": "2026-09-29T07:49:26.154Z",
+      "termWeek": 8,
+      "input": {
+        "sleepHours": 6,
+        "assignmentLoad": 6,
+        "screenTime": 6,
+        "familySupport": 5
+      },
+      "rawScore": 10,
+      "pulseScore": 50,
+      "stressBand": "neutral",
+      "primaryIndicator": "General Student Well-Being Check",
+      "previousScoreDelta": 0,
+      "aiAnalysis": {
+        "clinicalSummary": "Your check-in responses have been recorded safely. University well-being resources, support toolkits, and confidential counselling remain completely accessible to you.",
+        "identifiedTriggers": [],
+        "protectiveFactors": [],
+        "recommendedPathway": "self_guided",
+        "actionItems": [
+          "Explore self-guided student well-being toolkit",
+          "Speak with a qualified university counsellor if desired",
+          "Periodic re-screening recommended in 3 weeks"
+        ]
+      }
+    }
+  ],
+  "appointments": [
+    {
+      "id": "apt_siqiniseko_01",
+      "studentId": "usr_student_01",
+      "studentName": "Siqiniseko Nqobile",
+      "studentFaculty": "Engineering & Built Environment",
+      "studentYear": 2,
+      "counsellorId": "usr_counsellor_01",
+      "counsellorName": "Dr. Nomvula Khumalo, Ph.D.",
+      "counsellorRole": "Lead Clinical Psychologist",
+      "dateTime": "2026-09-30T10:00:00Z",
+      "formattedDate": "Wed, 07 Oct",
+      "formattedTime": "11:30 - 12:20",
+      "modality": "video",
+      "focusArea": "Academic Overwhelm & Exam Pacing",
+      "intakeNotes": "Screening indicated moderate pulse score (68/100) with primary indicator: Academic workload.",
+      "status": "rescheduled",
+      "stressBand": "moderate",
+      "reminderStatus": {
+        "dayPriorSent": true,
+        "hoursPriorSent": true
+      }
+    },
+    {
+      "id": "apt_thando_02",
+      "studentId": "stu_thando_02",
+      "studentName": "Thando Ndlovu",
+      "studentFaculty": "Health Sciences",
+      "studentYear": 3,
+      "counsellorId": "usr_counsellor_01",
+      "counsellorName": "Dr. Nomvula Khumalo, Ph.D.",
+      "counsellorRole": "Lead Clinical Psychologist",
+      "dateTime": "2026-10-01T10:00:00Z",
+      "formattedDate": "Thu, 10:00",
+      "formattedTime": "10:00 - 10:50",
+      "modality": "in_person",
+      "focusArea": "Clinical Rotations Fatigue",
+      "intakeNotes": "Acute sleep deficit (4h average).",
+      "status": "booked",
+      "stressBand": "high",
+      "reminderStatus": {
+        "dayPriorSent": true,
+        "hoursPriorSent": true
+      }
+    },
+    {
+      "id": "apt_naledi_03",
+      "studentId": "stu_naledi_03",
+      "studentName": "Naledi Sithole",
+      "studentFaculty": "Commerce & Law",
+      "studentYear": 1,
+      "counsellorId": "usr_counsellor_02",
+      "counsellorName": "Sipho Dlamini, LCSW",
+      "counsellorRole": "Senior Student Mental Health Specialist",
+      "dateTime": "2026-09-30T15:30:00Z",
+      "formattedDate": "Wed, 15:30",
+      "formattedTime": "15:30 - 16:20",
+      "modality": "walk_and_talk",
+      "focusArea": "First-Year Transition & Adjustment",
+      "intakeNotes": "Moderate stress screening (54/100). Homesickness and campus adaptation.",
+      "status": "booked",
+      "stressBand": "moderate",
+      "reminderStatus": {
+        "dayPriorSent": true,
+        "hoursPriorSent": true
+      }
+    }
+  ]
+}

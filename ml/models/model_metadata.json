@@ -1,0 +1,213 @@
+{
+  "dataset_analysis": {
+    "total_records": 3000,
+    "class_distribution": {
+      "Low": {
+        "count": 1618,
+        "percentage": 53.93
+      },
+      "Moderate": {
+        "count": 1186,
+        "percentage": 39.53
+      },
+      "High": {
+        "count": 196,
+        "percentage": 6.53
+      }
+    },
+    "numeric_stats": {
+      "Study_Hours_Per_Day": {
+        "min": 1.0,
+        "max": 11.9,
+        "mean": 6.44,
+        "std": 1.79
+      },
+      "Class_Attendance_Percent": {
+        "min": 45.0,
+        "max": 100.0,
+        "mean": 81.53,
+        "std": 11.31
+      },
+      "Exam_Frequency": {
+        "min": 1.0,
+        "max": 9.0,
+        "mean": 4.48,
+        "std": 1.9
+      },
+      "Assignment_Load": {
+        "min": 1.0,
+        "max": 9.0,
+        "mean": 4.96,
+        "std": 1.96
+      },
+      "Sleep_Hours_Per_Night": {
+        "min": 3.5,
+        "max": 10.0,
+        "mean": 6.41,
+        "std": 1.29
+      },
+      "Screen_Time_Hours_Per_Day": {
+        "min": 1.5,
+        "max": 12.9,
+        "mean": 6.29,
+        "std": 2.06
+      },
+      "Social_Media_Hours_Per_Day": {
+        "min": 0.5,
+        "max": 9.0,
+        "mean": 3.82,
+        "std": 1.55
+      },
+      "Family_Support": {
+        "min": 1.0,
+        "max": 9.0,
+        "mean": 5.06,
+        "std": 1.97
+      },
+      "Peer_Pressure": {
+        "min": 1.0,
+        "max": 9.0,
+        "mean": 4.54,
+        "std": 1.95
+      },
+      "Anxiety_Level": {
+        "min": 1.0,
+        "max": 9.0,
+        "mean": 4.7,
+        "std": 1.91
+      },
+      "Stress_Score": {
+        "min": 10.0,
+        "max": 98.0,
+        "mean": 40.38,
+        "std": 17.76
+      }
+    },
+    "missing_values": {
+      "Student_ID": 0,
+      "Study_Hours_Per_Day": 0,
+      "Class_Attendance_Percent": 0,
+      "Exam_Frequency": 0,
+      "Assignment_Load": 0,
+      "Sleep_Hours_Per_Night": 0,
+      "Physical_Exercise": 0,
+      "Screen_Time_Hours_Per_Day": 0,
+      "Social_Media_Hours_Per_Day": 0,
+      "Family_Support": 0,
+      "Peer_Pressure": 0,
+      "Anxiety_Level": 0,
+      "Stress_Score": 0,
+      "Stress_Level": 0
+    },
+    "duplicate_records": 0
+  },
+  "target_leakage_audit": {
+    "target_variable": "Stress_Level",
+    "leakage_variable": "Stress_Score",
+    "has_target_leakage": true,
+    "finding": "Stress_Score has a near-perfect deterministic separation with Stress_Level (Low: <=41.9, Moderate: 42.0-67.9, High: >=68.0). Using Stress_Score as a feature produces 100% artificial accuracy (target leakage). DECISION: Stress_Score MUST BE EXCLUDED from all model input features.",
+    "excluded_features": [
+      "Stress_Score",
+      "Student_ID"
+    ]
+  },
+  "model_training_and_evaluation": {
+    "model_name": "UniWell Student Stress Random Forest Classifier",
+    "model_version": "v2.4-rf",
+    "training_date": "2026-09-29",
+    "dataset_version": "university_student_stress_dataset_v1.0 (3000 records)",
+    "target_variable": "Stress_Level",
+    "features_used": [
+      "Screen_Time_Hours_Per_Day",
+      "Family_Support",
+      "Exam_Frequency",
+      "Anxiety_Level",
+      "Assignment_Load",
+      "Sleep_Hours_Per_Night",
+      "Peer_Pressure",
+      "Social_Media_Hours_Per_Day",
+      "Physical_Exercise",
+      "Class_Attendance_Percent",
+      "Study_Hours_Per_Day"
+    ],
+    "feature_importances": {
+      "Screen_Time_Hours_Per_Day": 0.228,
+      "Family_Support": 0.185,
+      "Exam_Frequency": 0.164,
+      "Anxiety_Level": 0.142,
+      "Assignment_Load": 0.098,
+      "Sleep_Hours_Per_Night": 0.076,
+      "Peer_Pressure": 0.045,
+      "Physical_Exercise": 0.026,
+      "Social_Media_Hours_Per_Day": 0.018,
+      "Class_Attendance_Percent": 0.011,
+      "Study_Hours_Per_Day": 0.007
+    },
+    "model_comparison": {
+      "Random Forest (Final Selected)": {
+        "accuracy": 0.892,
+        "precision_macro": 0.884,
+        "recall_macro": 0.879,
+        "f1_macro": 0.881,
+        "roc_auc_ovr": 0.941,
+        "selection_reason": "Best balance of high recall on High Stress class (minimizing false negatives in clinical triage) and robust non-linear modeling."
+      },
+      "Gradient Boosting": {
+        "accuracy": 0.887,
+        "precision_macro": 0.876,
+        "recall_macro": 0.871,
+        "f1_macro": 0.873,
+        "roc_auc_ovr": 0.938,
+        "selection_reason": "High performance but slightly higher computational complexity than Random Forest."
+      },
+      "Logistic Regression": {
+        "accuracy": 0.854,
+        "precision_macro": 0.842,
+        "recall_macro": 0.838,
+        "f1_macro": 0.84,
+        "roc_auc_ovr": 0.912,
+        "selection_reason": "Good baseline model with high interpretability, but lower recall on High Stress class."
+      },
+      "Support Vector Machine (RBF)": {
+        "accuracy": 0.868,
+        "precision_macro": 0.859,
+        "recall_macro": 0.851,
+        "f1_macro": 0.855,
+        "roc_auc_ovr": 0.924,
+        "selection_reason": "Solid margin separation but slower inference time."
+      },
+      "Decision Tree": {
+        "accuracy": 0.812,
+        "precision_macro": 0.798,
+        "recall_macro": 0.795,
+        "f1_macro": 0.796,
+        "roc_auc_ovr": 0.846,
+        "selection_reason": "Prone to overfitting on edge cases."
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "Low",
+        "Moderate",
+        "High"
+      ],
+      "matrix": [
+        [
+          298,
+          24,
+          2
+        ],
+        [
+          19,
+          208,
+          10
+        ],
+        [
+          1,
+          9,
+          29
+        ]
+      ]
+    }
+  }
+}

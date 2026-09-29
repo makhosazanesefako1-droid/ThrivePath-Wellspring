@@ -1,0 +1,224 @@
+{
+  "model_name": "UniWell Multi-Factor Behavioral Stress Classifier",
+  "model_version": "v3.2-calibrated",
+  "algorithm": "Stratified Multinomial Softmax with L2 Regularization",
+  "dataset": {
+    "source": "university_student_stress_dataset.csv",
+    "total_samples": 3000,
+    "train_samples": 2398,
+    "test_samples": 602,
+    "split_ratio": "80% Train / 20% Test",
+    "random_seed": 42
+  },
+  "target_variable": "Stress_Level",
+  "target_leakage_audit": {
+    "stress_score_included": false,
+    "finding": "PASSED. Stress_Score was removed from input features to prevent 100% artificial target leakage."
+  },
+  "evaluation": {
+    "accuracy_percent": 88.54,
+    "macro_f1_percent": 60.67,
+    "macro_precision_percent": 58.58,
+    "macro_recall_percent": 63.01,
+    "per_class_metrics": {
+      "Low": {
+        "precision": 94.56,
+        "recall": 96.6,
+        "f1_score": 95.57,
+        "true_positives": 313,
+        "false_positives": 18,
+        "false_negatives": 11
+      },
+      "Moderate": {
+        "precision": 81.18,
+        "recall": 92.44,
+        "f1_score": 86.44,
+        "true_positives": 220,
+        "false_positives": 51,
+        "false_negatives": 18
+      },
+      "High": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 40
+      }
+    },
+    "confusion_matrix": {
+      "Low": {
+        "Low": 313,
+        "Moderate": 11,
+        "High": 0
+      },
+      "Moderate": {
+        "Low": 18,
+        "Moderate": 220,
+        "High": 0
+      },
+      "High": {
+        "Low": 0,
+        "Moderate": 40,
+        "High": 0
+      }
+    }
+  },
+  "feature_importance": [
+    {
+      "feature": "Family_Support",
+      "weight_difference": -1.491,
+      "direction": "Protective Buffer"
+    },
+    {
+      "feature": "Screen_Time",
+      "weight_difference": 1.425,
+      "direction": "Elevates Stress Indicator"
+    },
+    {
+      "feature": "Anxiety_Level",
+      "weight_difference": 1.3707,
+      "direction": "Elevates Stress Indicator"
+    },
+    {
+      "feature": "Assignment_Load",
+      "weight_difference": 1.1245,
+      "direction": "Elevates Stress Indicator"
+    },
+    {
+      "feature": "Exam_Frequency",
+      "weight_difference": 1.1199,
+      "direction": "Elevates Stress Indicator"
+    },
+    {
+      "feature": "Sleep_Hours",
+      "weight_difference": -0.8299,
+      "direction": "Protective Buffer"
+    },
+    {
+      "feature": "Peer_Pressure",
+      "weight_difference": 0.7767,
+      "direction": "Elevates Stress Indicator"
+    },
+    {
+      "feature": "Social_Media_Use",
+      "weight_difference": 0.5131,
+      "direction": "Elevates Stress Indicator"
+    },
+    {
+      "feature": "Physical_Exercise",
+      "weight_difference": -0.3552,
+      "direction": "Protective Buffer"
+    },
+    {
+      "feature": "Class_Attendance",
+      "weight_difference": -0.3308,
+      "direction": "Protective Buffer"
+    },
+    {
+      "feature": "Study_Hours",
+      "weight_difference": 0.0054,
+      "direction": "Elevates Stress Indicator"
+    }
+  ],
+  "training_parameters": {
+    "feature_names": [
+      "Screen_Time",
+      "Anxiety_Level",
+      "Exam_Frequency",
+      "Assignment_Load",
+      "Peer_Pressure",
+      "Social_Media_Use",
+      "Family_Support",
+      "Sleep_Hours",
+      "Physical_Exercise",
+      "Class_Attendance",
+      "Study_Hours"
+    ],
+    "means": [
+      6.2675,
+      4.6626,
+      4.495,
+      4.9554,
+      4.5442,
+      3.7889,
+      5.0651,
+      6.3963,
+      0.5567,
+      81.3673,
+      6.4559
+    ],
+    "stds": [
+      2.0504,
+      1.8973,
+      1.8933,
+      1.9746,
+      1.929,
+      1.5493,
+      1.9619,
+      1.2897,
+      0.4968,
+      11.3566,
+      1.7953
+    ],
+    "weights": [
+      [
+        -0.91615,
+        -0.86267,
+        -0.73433,
+        -0.71276,
+        -0.48084,
+        -0.32138,
+        0.91599,
+        0.49715,
+        0.23347,
+        0.19583,
+        0.02131
+      ],
+      [
+        0.40731,
+        0.35465,
+        0.34876,
+        0.30101,
+        0.18498,
+        0.1297,
+        -0.34098,
+        -0.16443,
+        -0.11174,
+        -0.06082,
+        -0.04799
+      ],
+      [
+        0.50884,
+        0.50802,
+        0.38557,
+        0.41175,
+        0.29586,
+        0.19168,
+        -0.575,
+        -0.33271,
+        -0.12173,
+        -0.13501,
+        0.02668
+      ]
+    ],
+    "biases": [
+      0.841,
+      0.42972,
+      -1.27071
+    ],
+    "classes": [
+      "Low",
+      "Moderate",
+      "High"
+    ]
+  },
+  "privacy_and_clinical_safety": {
+    "purpose_limitation": "Well-being screening and support options. Not a medical diagnostic or treatment system.",
+    "no_diagnostic_claims": true,
+    "human_oversight_required": true,
+    "autonomous_student_choice": true,
+    "non_punitive_guarantee": true
+  },
+  "date_trained": "2026-09-29T00:22:00Z"
+}

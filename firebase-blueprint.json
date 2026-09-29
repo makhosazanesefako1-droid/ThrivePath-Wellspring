@@ -1,0 +1,115 @@
+{
+  "entities": {
+    "UserAccount": {
+      "title": "UserAccount",
+      "description": "Registered university user account with role-based access",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "format": "email", "maxLength": 256 },
+        "fullName": { "type": "string", "maxLength": 128 },
+        "role": { "type": "string", "enum": ["student", "counsellor", "dean", "admin"] },
+        "approved": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "email", "fullName", "role", "approved", "createdAt"]
+    },
+    "StudentProfile": {
+      "title": "StudentProfile",
+      "description": "Student registration and demographic record paired with ThrivePath",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "studentId": { "type": "string", "maxLength": 64 },
+        "fullName": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "format": "email", "maxLength": 256 },
+        "faculty": { "type": "string", "maxLength": 128 },
+        "program": { "type": "string", "maxLength": 128 },
+        "yearOfStudy": { "type": "number" },
+        "residentialStatus": { "type": "string", "enum": ["on_campus", "off_campus", "commuter"] },
+        "preferredPronouns": { "type": "string", "maxLength": 64 },
+        "emergencyContact": { "type": "object" },
+        "registeredAt": { "type": "string" },
+        "screeningStatus": { "type": "string", "enum": ["pending", "completed", "rescreening_due"] },
+        "registrationProgressPercent": { "type": "number" },
+        "pulseScore": { "type": "number" },
+        "primaryIndicator": { "type": "string", "maxLength": 128 },
+        "averageSleepHours": { "type": "number" }
+      },
+      "required": ["id", "studentId", "fullName", "email", "registeredAt"]
+    },
+    "ScreeningRecord": {
+      "title": "ScreeningRecord",
+      "description": "Confidential non-diagnostic wellbeing check record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "studentId": { "type": "string", "maxLength": 128 },
+        "timestamp": { "type": "string" },
+        "pulseScore": { "type": "number" },
+        "stressBand": { "type": "string", "enum": ["low", "moderate", "high"] },
+        "keyIndicators": { "type": "object" },
+        "isCrisisEscalation": { "type": "boolean" },
+        "aiAnalysis": { "type": "object" }
+      },
+      "required": ["id", "studentId", "timestamp", "pulseScore", "stressBand"]
+    },
+    "Appointment": {
+      "title": "Appointment",
+      "description": "Student confidential support session booking",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "studentId": { "type": "string", "maxLength": 128 },
+        "studentName": { "type": "string", "maxLength": 128 },
+        "counsellorId": { "type": "string", "maxLength": 128 },
+        "counsellorName": { "type": "string", "maxLength": 128 },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "formattedDate": { "type": "string", "maxLength": 128 },
+        "durationMinutes": { "type": "number" },
+        "modality": { "type": "string", "enum": ["in_person", "video", "phone"] },
+        "status": { "type": "string", "enum": ["booked", "completed", "rescheduled", "cancelled", "no_show"] },
+        "notes": { "type": "string", "maxLength": 2048 },
+        "meetLink": { "type": "string", "maxLength": 512 }
+      },
+      "required": ["id", "studentId", "counsellorId", "date", "time", "status"]
+    },
+    "SupportResource": {
+      "title": "SupportResource",
+      "description": "Evidence-backed university wellbeing tool or guide",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 128 },
+        "category": { "type": "string", "maxLength": 64 },
+        "description": { "type": "string", "maxLength": 1024 },
+        "duration": { "type": "string", "maxLength": 64 },
+        "difficulty": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "title", "category", "description"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserAccount" },
+      "description": "User profiles and credentials"
+    },
+    "/studentProfiles/{studentId}": {
+      "schema": { "$ref": "#/entities/StudentProfile" },
+      "description": "Student registration and wellbeing metadata"
+    },
+    "/screenings/{screeningId}": {
+      "schema": { "$ref": "#/entities/ScreeningRecord" },
+      "description": "Private student stress and wellbeing screening entries"
+    },
+    "/appointments/{appointmentId}": {
+      "schema": { "$ref": "#/entities/Appointment" },
+      "description": "Confidential support sessions"
+    },
+    "/resources/{resourceId}": {
+      "schema": { "$ref": "#/entities/SupportResource" },
+      "description": "University wellbeing exercises and guides"
+    }
+  }
+}

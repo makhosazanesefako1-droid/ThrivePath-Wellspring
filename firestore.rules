@@ -1,0 +1,115 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 1. GLOBAL SAFETY NET (Default Deny Catch-All)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 2. REUSABLE PRIMITIVE HELPERS
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'makhosazanesefako1@gmail.com' ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'dean'])
+      );
+    }
+
+    function isCounsellor() {
+      return isSignedIn() && (
+        isAdmin() ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'counsellor')
+      );
+    }
+
+    // 3. USERS COLLECTION
+    match /users/{userId} {
+      allow get: if isValidId(userId) && (isOwner(userId) || isCounsellor());
+      allow list: if isSignedIn();
+      allow create: if isValidId(userId) && (isOwner(userId) || isAdmin()) &&
+                    incoming().keys().hasAll(['id', 'email', 'fullName', 'role']) &&
+                    incoming().id == userId &&
+                    incoming().fullName is string && incoming().fullName.size() <= 128;
+      allow update: if isValidId(userId) && (isOwner(userId) || isAdmin()) &&
+                    incoming().id == existing().id &&
+                    incoming().email == existing().email;
+      allow delete: if isAdmin();
+    }
+
+    // 4. STUDENT PROFILES COLLECTION
+    match /studentProfiles/{profileId} {
+      allow get: if isValidId(profileId) && (isOwner(profileId) || isCounsellor());
+      allow list: if isCounsellor() || (isSignedIn() && resource.data.id == request.auth.uid);
+      allow create, update: if isValidId(profileId) && (isOwner(profileId) || isCounsellor() || isAdmin()) &&
+                            incoming().id == profileId &&
+                            incoming().fullName is string && incoming().fullName.size() <= 128;
+      allow delete: if isAdmin();
+    }
+
+    // 5. SCREENINGS COLLECTION
+    match /screenings/{screeningId} {
+      allow get: if isValidId(screeningId) && (
+        resource.data.studentId == request.auth.uid || isCounsellor()
+      );
+      allow list: if isCounsellor() || (isSignedIn() && resource.data.studentId == request.auth.uid);
+      allow create: if isValidId(screeningId) && isSignedIn() &&
+                    (incoming().studentId == request.auth.uid || isAdmin()) &&
+                    incoming().pulseScore is number &&
+                    incoming().stressBand in ['low', 'moderate', 'high'];
+      allow update: if isValidId(screeningId) && (isCounsellor() || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    // 6. APPOINTMENTS COLLECTION
+    match /appointments/{appointmentId} {
+      allow get: if isValidId(appointmentId) && (
+        resource.data.studentId == request.auth.uid ||
+        resource.data.counsellorId == request.auth.uid ||
+        isCounsellor()
+      );
+      allow list: if isCounsellor() || (
+        isSignedIn() && (
+          resource.data.studentId == request.auth.uid ||
+          resource.data.counsellorId == request.auth.uid
+        )
+      );
+      allow create: if isValidId(appointmentId) && isSignedIn() &&
+                    (incoming().studentId == request.auth.uid || isCounsellor()) &&
+                    incoming().status in ['booked', 'completed', 'rescheduled', 'cancelled', 'no_show'];
+      allow update: if isValidId(appointmentId) && isSignedIn() && (
+        existing().studentId == request.auth.uid ||
+        existing().counsellorId == request.auth.uid ||
+        isCounsellor()
+      );
+      allow delete: if isAdmin();
+    }
+
+    // 7. SUPPORT RESOURCES COLLECTION
+    match /resources/{resourceId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+  }
+}

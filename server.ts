@@ -5,11 +5,8 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
-import {
-  computeStressScore,
-  StudentScreeningInput,
-  StressModelOutput,
-} from './src/lib/stressModel.ts';
+import { computeStressScore } from './src/lib/stressModel.ts';
+import type { StudentScreeningInput, StressModelOutput } from './src/lib/stressModel.ts';
 import type {
   UserAccount,
   StudentProfile,
@@ -857,8 +854,9 @@ Output brief JSON with:
   // -------------------------------------------------------------
   // FRONTEND SERVING
   // -------------------------------------------------------------
-  const isProduction = process.env.NODE_ENV === 'production';
   const distPath = path.join(__dirname, 'dist');
+  const hasDist = fs.existsSync(path.join(distPath, 'index.html'));
+  const isProduction = process.env.NODE_ENV === 'production' || (hasDist && process.env.NODE_ENV !== 'development');
 
   if (!isProduction) {
     const { createServer: createViteServer } = await import('vite');

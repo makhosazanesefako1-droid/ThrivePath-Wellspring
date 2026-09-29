@@ -9,7 +9,7 @@ import {
   computeStressScore,
   StudentScreeningInput,
   StressModelOutput,
-} from './src/lib/stressModel.ts';
+} from './src/lib/stressModel';
 import type {
   UserAccount,
   StudentProfile,
@@ -19,7 +19,7 @@ import type {
   SupportResource,
   UniversityAnalytics,
   AppointmentStatus,
-} from './src/types/index.ts';
+} from './src/types/index';
 
 dotenv.config();
 

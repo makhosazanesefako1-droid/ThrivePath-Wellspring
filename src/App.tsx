@@ -34,12 +34,15 @@ import {
 // Core Views
 import { PublicLandingPage } from './components/PublicLandingPage.tsx';
 import { Navigation } from './components/Navigation.tsx';
+import { Header } from './components/Header.tsx';
 import { StudentDashboard } from './components/StudentDashboard.tsx';
 import { AppointmentsPage } from './components/AppointmentsPage.tsx';
 import { CounsellorDashboard } from './components/CounsellorDashboard.tsx';
 import { HistoryTimelineView } from './components/HistoryTimelineView.tsx';
 import { ResourcesCenterView } from './components/ResourcesCenterView.tsx';
 import { AdminOverviewDashboard } from './components/AdminOverviewDashboard.tsx';
+import { DatasetDashboardView } from './components/DatasetDashboardView.tsx';
+import { StudentRegistrationView } from './components/StudentRegistrationView.tsx';
 
 // Modals
 import { AuthModal } from './components/AuthModal.tsx';
@@ -293,48 +296,49 @@ export default function App() {
           }}
           onOpenPrivacy={() => setIsPrivacyModalOpen(true)}
           onOpenMLInfo={() => setIsMLModalOpen(true)}
+          onViewEvidenceDashboard={() => {
+            setViewMode('portal');
+            setActiveTab('evidence');
+          }}
         />
       ) : (
         /* ========================================================= */
-        /* 2. AUTHENTICATED PORTAL (Section 5, 6, 10, 11, etc.) */
+        /* 2. AUTHENTICATED PORTAL (matching Screenshot 5) */
         /* ========================================================= */
-        <div className="flex-1 flex flex-col md:flex-row min-h-screen">
-          {/* Desktop Left Sidebar + Mobile Bottom Navigation */}
-          <Navigation
-            currentTab={activeTab}
-            onSelectTab={(tab) => setActiveTab(tab)}
-            currentUser={currentUser}
+        <div className="flex-1 flex flex-col min-h-screen bg-[#F4FAF7]">
+          {/* Top Full-Width Header (matching Screenshot 5) */}
+          <Header
             currentRole={currentRole}
             onRoleChange={handleRoleChange}
+            currentUser={currentUser}
+            onOpenSignIn={() => {
+              setAuthInitialTab('login');
+              setIsAuthModalOpen(true);
+            }}
             onSignOut={handleSignOut}
-            onOpenSettings={() => setIsSettingsModalOpen(true)}
-            onOpenHelp={() => setIsHelpModalOpen(true)}
-            onOpenPrivacy={() => setIsPrivacyModalOpen(true)}
-            onOpenMLInfo={() => setIsMLModalOpen(true)}
-            onOpenSafetyTests={() => setIsSafetyTestsModalOpen(true)}
+            onGoToLanding={() => setViewMode('landing')}
           />
 
-          {/* Main Content Area */}
-          <div className="flex-1 flex flex-col min-w-0">
-            {/* Mobile Top Header (Mobile only) */}
-            <header className="md:hidden sticky top-0 z-30 bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between">
-              <UniWellLogo size="sm" showSubtitle={false} />
-              <div className="flex items-center gap-2">
-                <span className="capitalize px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 text-[#173B57] text-[10px] font-bold">
-                  {currentRole}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setIsSettingsModalOpen(true)}
-                  className="p-1.5 rounded-lg text-[#64748B] hover:text-[#172033]"
-                >
-                  <Menu className="w-5 h-5" />
-                </button>
-              </div>
-            </header>
+          <div className="flex-1 flex flex-col md:flex-row min-h-0">
+            {/* Desktop Left Sidebar + Mobile Bottom Navigation */}
+            <Navigation
+              currentTab={activeTab}
+              onSelectTab={(tab) => setActiveTab(tab)}
+              currentUser={currentUser}
+              currentRole={currentRole}
+              onRoleChange={handleRoleChange}
+              onSignOut={handleSignOut}
+              onOpenSettings={() => setIsSettingsModalOpen(true)}
+              onOpenHelp={() => setIsHelpModalOpen(true)}
+              onOpenPrivacy={() => setIsPrivacyModalOpen(true)}
+              onOpenMLInfo={() => setIsMLModalOpen(true)}
+              onOpenSafetyTests={() => setIsSafetyTestsModalOpen(true)}
+            />
 
-            {/* Portal Tab Content */}
-            <main className="flex-1 p-4 sm:p-6 lg:p-8 pb-20 md:pb-8">
+            {/* Main Content Area */}
+            <div className="flex-1 flex flex-col min-w-0 bg-[#F4FAF7]">
+              {/* Portal Tab Content */}
+              <main className="flex-1 p-4 sm:p-6 lg:p-8 pb-20 md:pb-8">
               {isLoading && !student ? (
                 <div className="flex flex-col items-center justify-center min-h-[400px]">
                   <Loader2 className="w-8 h-8 text-[#2563EB] animate-spin mb-3" />
@@ -479,6 +483,21 @@ export default function App() {
                           onStartReScreening={() => setIsScreeningModalOpen(true)}
                         />
                       )}
+
+                      {/* Registration Tab */}
+                      {activeTab === 'registration' && student && (
+                        <StudentRegistrationView
+                          student={student}
+                          onProceedToScreening={() => setIsScreeningModalOpen(true)}
+                        />
+                      )}
+
+                      {/* Dataset & Graphs Dashboard Tab */}
+                      {activeTab === 'evidence' && (
+                        <DatasetDashboardView
+                          onStartScreening={() => setIsScreeningModalOpen(true)}
+                        />
+                      )}
                     </>
                   )}
 
@@ -501,6 +520,10 @@ export default function App() {
                           onOpenCrisis={() => setIsCrisisModalOpen(true)}
                           onBookCounselling={() => setIsBookingModalOpen(true)}
                         />
+                      ) : activeTab === 'evidence' ? (
+                        <DatasetDashboardView
+                          onStartScreening={() => setIsScreeningModalOpen(true)}
+                        />
                       ) : null}
                     </>
                   )}
@@ -510,7 +533,11 @@ export default function App() {
                   {/* ========================================================= */}
                   {currentRole === 'admin' && (
                     <>
-                      {activeTab === 'dashboard' || activeTab === 'analytics' || activeTab === 'counsellors' ? (
+                      {activeTab === 'evidence' ? (
+                        <DatasetDashboardView
+                          onStartScreening={() => setIsScreeningModalOpen(true)}
+                        />
+                      ) : activeTab === 'dashboard' || activeTab === 'analytics' || activeTab === 'counsellors' ? (
                         <AdminOverviewDashboard
                           analytics={analytics}
                           counsellors={counsellors}
@@ -532,7 +559,8 @@ export default function App() {
             </main>
           </div>
         </div>
-      )}
+      </div>
+    )}
 
       {/* ========================================================= */}
       {/* INTERACTIVE MODALS */}

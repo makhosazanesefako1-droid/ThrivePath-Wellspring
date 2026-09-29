@@ -11,8 +11,8 @@
     },
     {
       "id": "usr_student_01",
-      "email": "siqinisekonqobile@gmail.com",
-      "fullName": "Siqiniseko Nqobile",
+      "email": "lethabo@campus.ac.za",
+      "fullName": "Lethabo Mthembu",
       "role": "student",
       "approved": true,
       "createdAt": "2026-09-05T10:00:00Z"
@@ -43,15 +43,15 @@
       "title": "Registered Counselling Psychologist (HPCSA)",
       "approved": false,
       "createdAt": "2026-09-28T14:30:00Z",
-      "notes": "HPCSA Practice No: PS 0148922 · Master of Arts in Clinical Psychology, Wits"
+      "notes": "HPCSA Practice No: PS 0148922 \u00b7 Master of Arts in Clinical Psychology, Wits"
     }
   ],
   "studentProfiles": {
     "usr_student_01": {
       "id": "usr_student_01",
-      "studentId": "ZA-2024-4192",
-      "fullName": "Siqiniseko Nqobile",
-      "email": "siqinisekonqobile@gmail.com",
+      "studentId": "ZA-2026-8512",
+      "fullName": "Lethabo Mthembu",
+      "email": "lethabo@campus.ac.za",
       "faculty": "Faculty of Engineering & the Built Environment",
       "program": "B.Sc. Electrical & Computer Engineering",
       "yearOfStudy": 2,
